@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxzq.ds.zeus.mapper.SourceConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.cxzq.ds.zeus.pojo.SourceConfig" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="user" property="user" jdbcType="VARCHAR" />
+    <result column="pass" property="pass" jdbcType="VARCHAR" />
+    <result column="dsn" property="dsn" jdbcType="VARCHAR" />
+    <result column="dtype" property="dtype" jdbcType="INTEGER" />
+    <result column="dstatus" property="dstatus" jdbcType="INTEGER" />
+    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    <result column="mtime" property="mtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, user, pass, dsn, dtype, dstatus, ctime, mtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_source_config
+    where id = #{id,jdbcType=VARCHAR}
+    and dstatus = 1
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_source_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_source_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.cxzq.ds.zeus.pojo.SourceConfig" >
+    insert into t_source_config (id, name, user, 
+      pass, dsn, dtype, dstatus, 
+      ctime, mtime)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{user,jdbcType=VARCHAR}, 
+      #{pass,jdbcType=VARCHAR}, #{dsn,jdbcType=VARCHAR}, #{dtype,jdbcType=INTEGER}, #{dstatus,jdbcType=INTEGER}, 
+      #{ctime,jdbcType=TIMESTAMP}, #{mtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxzq.ds.zeus.pojo.SourceConfig" >
+    insert into t_source_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="user != null" >
+        user,
+      </if>
+      <if test="pass != null" >
+        pass,
+      </if>
+      <if test="dsn != null" >
+        dsn,
+      </if>
+      <if test="dtype != null" >
+        dtype,
+      </if>
+      <if test="dstatus != null" >
+        dstatus,
+      </if>
+      <if test="ctime != null" >
+        ctime,
+      </if>
+      <if test="mtime != null" >
+        mtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="user != null" >
+        #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="dsn != null" >
+        #{dsn,jdbcType=VARCHAR},
+      </if>
+      <if test="dtype != null" >
+        #{dtype,jdbcType=INTEGER},
+      </if>
+      <if test="dstatus != null" >
+        #{dstatus,jdbcType=INTEGER},
+      </if>
+      <if test="ctime != null" >
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mtime != null" >
+        #{mtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxzq.ds.zeus.pojo.SourceConfig" >
+    update t_source_config
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="user != null" >
+        user = #{user,jdbcType=VARCHAR},
+      </if>
+      <if test="pass != null" >
+        pass = #{pass,jdbcType=VARCHAR},
+      </if>
+      <if test="dsn != null" >
+        dsn = #{dsn,jdbcType=VARCHAR},
+      </if>
+      <if test="dtype != null" >
+        dtype = #{dtype,jdbcType=INTEGER},
+      </if>
+      <if test="dstatus != null" >
+        dstatus = #{dstatus,jdbcType=INTEGER},
+      </if>
+      <if test="ctime != null" >
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mtime != null" >
+        mtime = #{mtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxzq.ds.zeus.pojo.SourceConfig" >
+    update t_source_config
+    set name = #{name,jdbcType=VARCHAR},
+      user = #{user,jdbcType=VARCHAR},
+      pass = #{pass,jdbcType=VARCHAR},
+      dsn = #{dsn,jdbcType=VARCHAR},
+      dtype = #{dtype,jdbcType=INTEGER},
+      dstatus = #{dstatus,jdbcType=INTEGER},
+      ctime = #{ctime,jdbcType=TIMESTAMP},
+      mtime = #{mtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

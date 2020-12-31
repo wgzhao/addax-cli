@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxzq.ds.zeus.mapper.TableInfoMapper">
+    <resultMap id="BaseResultMap" type="com.cxzq.ds.zeus.pojo.TableInfo">
+        <result column="source_id" property="sourceId" jdbcType="VARCHAR" />
+        <result column="db_name" property="dbName" jdbcType="VARCHAR" />
+        <result column="tbl_name" property="tblName" jdbcType="VARCHAR" />
+        <result column="col_name" property="colName" jdbcType="VARCHAR" />
+        <result column="col_type" property="colType" jdbcType="VARCHAR" />
+        <result column="col_length" property="colLength" jdbcType="INTEGER" />
+        <result column="col_precision" property="colPrecision" jdbcType="INTEGER" />
+        <result column="col_pos" property="colPos" jdbcType="INTEGER" />
+    </resultMap>
+    <insert id="insert" parameterType="com.cxzq.ds.zeus.pojo.TableInfo">
+        replace into t_table_info (source_id, db_name, tbl_name,
+        col_name, col_type, col_length,
+        col_precision, col_pos)
+        values (#{sourceId,jdbcType=VARCHAR}, #{dbName,jdbcType=VARCHAR}, #{tblName,jdbcType=VARCHAR},
+        #{colName,jdbcType=VARCHAR}, #{colType,jdbcType=VARCHAR}, #{colLength,jdbcType=INTEGER},
+        #{colPrecision,jdbcType=INTEGER}, #{colPos,jdbcType=INTEGER})
+    </insert>
+    <insert id="insertSelective" parameterType="com.cxzq.ds.zeus.pojo.TableInfo">
+        insert into t_table_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sourceId != null">
+                source_id,
+            </if>
+            <if test="dbName != null">
+                db_name,
+            </if>
+            <if test="tblName != null">
+                tbl_name,
+            </if>
+            <if test="colName != null">
+                col_name,
+            </if>
+            <if test="colType != null">
+                col_type,
+            </if>
+            <if test="colLength != null">
+                col_length,
+            </if>
+            <if test="colPrecision != null">
+                col_precision,
+            </if>
+            <if test="colPos != null">
+                col_pos,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sourceId != null">
+                #{sourceId,jdbcType=VARCHAR},
+            </if>
+            <if test="dbName != null">
+                #{dbName,jdbcType=VARCHAR},
+            </if>
+            <if test="tblName != null">
+                #{tblName,jdbcType=VARCHAR},
+            </if>
+            <if test="colName != null">
+                #{colName,jdbcType=VARCHAR},
+            </if>
+            <if test="colType != null">
+                #{colType,jdbcType=VARCHAR},
+            </if>
+            <if test="colLength != null">
+                #{colLength,jdbcType=INTEGER},
+            </if>
+            <if test="colPrecision != null">
+                #{colPrecision,jdbcType=INTEGER},
+            </if>
+            <if test="colPos != null">
+                #{colPos,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="getTableInfos" resultMap="BaseResultMap" parameterType="com.cxzq.ds.zeus.pojo.TableInfo">
+        select * from t_table_info
+        <where>
+            <if test="sourceId != null">
+                and source_id = #{sourceId,jdbcType=VARCHAR}
+            </if>
+            <if test="dbName != null">
+                and db_name= #{dbName,jdbcType=VARCHAR}
+            </if>
+            <if test="tblName != null">
+                and tbl_name = #{tblName,jdbcType=VARCHAR}
+            </if>
+        </where>
+      order by col_pos asc
+    </select>
+</mapper>

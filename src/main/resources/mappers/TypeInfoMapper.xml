@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxzq.ds.zeus.mapper.TypeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.cxzq.ds.zeus.pojo.TypeInfo" >
+    <id column="dtype" property="dtype" jdbcType="INTEGER" />
+    <result column="col_type" property="colType" jdbcType="VARCHAR" />
+    <result column="sql_type" property="sqlType" jdbcType="VARCHAR" />
+    <result column="sql_type_code" property="sqlTypeCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    dtype, col_type, sql_type, sql_type_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_type_info
+    where dtype = #{dtype,jdbcType=INTEGER}
+  </select>
+  <select id="selectTypeInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_type_info
+    where dtype = #{dtype,jdbcType=INTEGER} and sql_type_code = #{sqlTypeCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_type_info
+    where dtype = #{dtype,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cxzq.ds.zeus.pojo.TypeInfo" >
+    insert into t_type_info (dtype, col_type, sql_type, 
+      sql_type_code)
+    values (#{dtype,jdbcType=INTEGER}, #{colType,jdbcType=VARCHAR}, #{sqlType,jdbcType=VARCHAR}, 
+      #{sqlTypeCode,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cxzq.ds.zeus.pojo.TypeInfo" >
+    insert into t_type_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dtype != null" >
+        dtype,
+      </if>
+      <if test="colType != null" >
+        col_type,
+      </if>
+      <if test="sqlType != null" >
+        sql_type,
+      </if>
+      <if test="sqlTypeCode != null" >
+        sql_type_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dtype != null" >
+        #{dtype,jdbcType=INTEGER},
+      </if>
+      <if test="colType != null" >
+        #{colType,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlType != null" >
+        #{sqlType,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlTypeCode != null" >
+        #{sqlTypeCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cxzq.ds.zeus.pojo.TypeInfo" >
+    update t_type_info
+    <set >
+      <if test="colType != null" >
+        col_type = #{colType,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlType != null" >
+        sql_type = #{sqlType,jdbcType=VARCHAR},
+      </if>
+      <if test="sqlTypeCode != null" >
+        sql_type_code = #{sqlTypeCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where dtype = #{dtype,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cxzq.ds.zeus.pojo.TypeInfo" >
+    update t_type_info
+    set col_type = #{colType,jdbcType=VARCHAR},
+      sql_type = #{sqlType,jdbcType=VARCHAR},
+      sql_type_code = #{sqlTypeCode,jdbcType=VARCHAR}
+    where dtype = #{dtype,jdbcType=INTEGER}
+  </update>
+</mapper>

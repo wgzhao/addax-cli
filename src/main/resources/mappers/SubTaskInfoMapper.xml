@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cxzq.ds.zeus.mapper.SubTaskInfoMapper">
+    <resultMap id="BaseResultMap" type="com.cxzq.ds.zeus.pojo.SubTaskInfo">
+        <result column="source_id" property="sourceId" jdbcType="VARCHAR" />
+        <result column="source_db" property="sourceDb" jdbcType="VARCHAR" />
+        <result column="source_tbl" property="sourceTbl" jdbcType="VARCHAR" />
+        <result column="target_id" property="targetId" jdbcType="VARCHAR" />
+        <result column="target_db" property="targetDb" jdbcType="VARCHAR" />
+        <result column="target_tbl" property="targetTbl" jdbcType="VARCHAR" />
+        <result column="is_add_target_tbl" property="isAddTargetTbl" jdbcType="INTEGER" />
+        <result column="add_target_tbl_status" property="addTargetTblStatus" jdbcType="INTEGER" />
+        <result column="add_target_tbl_reason" property="addTargetTblReason" jdbcType="VARCHAR" />
+        <result column="add_field_status" property="addFieldStatus" jdbcType="INTEGER" />
+        <result column="add_field_reason" property="addFieldReason" jdbcType="VARCHAR" />
+        <result column="add_json_status" property="addJsonStatus" jdbcType="INTEGER" />
+        <result column="add_json_reason" property="addJsonReason" jdbcType="VARCHAR" />
+        <result column="target_mapping_status" property="targetMappingStatus" jdbcType="INTEGER" />
+        <result column="target_mapping_reason" property="targetMappingReason" jdbcType="VARCHAR" />
+        <result column="task_id" property="taskId" jdbcType="VARCHAR" />
+        <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+        <result column="mtime" property="mtime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, source_id, source_db, source_tbl, target_id, target_db, target_tbl, is_add_target_tbl,
+        add_target_tbl_status, add_target_tbl_reason, add_field_status, add_field_reason,
+        add_json_status, add_json_reason, target_mapping_status, target_mapping_reason, task_id,
+        ctime, mtime
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from t_sub_task_info
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <select id="getCreateTableTas" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from t_sub_task_info
+        where task_id = #{mainTaskId,jdbcType=VARCHAR}
+        and is_add_target_tbl = 1
+        and add_field_status = 1
+        and target_mapping_status = 1
+        and add_target_tbl_status = 0
+    </select>
+    <select id="getGroupCreateTableTas" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from t_sub_task_info
+        where task_id = #{mainTaskId,jdbcType=VARCHAR}
+        and is_add_target_tbl = 1
+        and add_field_status = 1
+        and target_mapping_status = 1
+        and add_target_tbl_status = 0
+        group by target_id
+    </select>
+    <select id="getGroupColInfoStorageTasks" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from t_sub_task_info
+        where task_id = #{mainTaskId,jdbcType=VARCHAR}
+        and add_field_status =0 group by source_id
+    </select>
+    <select id="getColInfoStorageTasks" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from t_sub_task_info
+        where task_id = #{mainTaskId,jdbcType=VARCHAR}
+        and add_field_status =0
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from t_sub_task_info
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo" >
+        insert into t_sub_task_info (id, source_id, source_db,
+        source_tbl, target_id, target_db,
+        target_tbl, is_add_target_tbl, add_target_tbl_status,
+        add_target_tbl_reason, add_field_status, add_field_reason,
+        add_json_status, add_json_reason, target_mapping_status,
+        target_mapping_reason, task_id, ctime,
+        mtime)
+        values (#{id,jdbcType=VARCHAR}, #{sourceId,jdbcType=VARCHAR}, #{sourceDb,jdbcType=VARCHAR},
+        #{sourceTbl,jdbcType=VARCHAR}, #{targetId,jdbcType=VARCHAR}, #{targetDb,jdbcType=VARCHAR},
+        #{targetTbl,jdbcType=VARCHAR}, #{isAddTargetTbl,jdbcType=INTEGER}, #{addTargetTblStatus,jdbcType=INTEGER},
+        #{addTargetTblReason,jdbcType=VARCHAR}, #{addFieldStatus,jdbcType=INTEGER}, #{addFieldReason,jdbcType=VARCHAR},
+        #{addJsonStatus,jdbcType=INTEGER}, #{addJsonReason,jdbcType=VARCHAR}, #{targetMappingStatus,jdbcType=INTEGER},
+        #{targetMappingReason,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP},
+        #{mtime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo" >
+        insert into t_sub_task_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="sourceId != null" >
+                source_id,
+            </if>
+            <if test="sourceDb != null" >
+                source_db,
+            </if>
+            <if test="sourceTbl != null" >
+                source_tbl,
+            </if>
+            <if test="targetId != null" >
+                target_id,
+            </if>
+            <if test="targetDb != null" >
+                target_db,
+            </if>
+            <if test="targetTbl != null" >
+                target_tbl,
+            </if>
+            <if test="isAddTargetTbl != null" >
+                is_add_target_tbl,
+            </if>
+            <if test="addTargetTblStatus != null" >
+                add_target_tbl_status,
+            </if>
+            <if test="addTargetTblReason != null" >
+                add_target_tbl_reason,
+            </if>
+            <if test="addFieldStatus != null" >
+                add_field_status,
+            </if>
+            <if test="addFieldReason != null" >
+                add_field_reason,
+            </if>
+            <if test="addJsonStatus != null" >
+                add_json_status,
+            </if>
+            <if test="addJsonReason != null" >
+                add_json_reason,
+            </if>
+            <if test="targetMappingStatus != null" >
+                target_mapping_status,
+            </if>
+            <if test="targetMappingReason != null" >
+                target_mapping_reason,
+            </if>
+            <if test="taskId != null" >
+                task_id,
+            </if>
+            <if test="ctime != null" >
+                ctime,
+            </if>
+            <if test="mtime != null" >
+                mtime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceId != null" >
+                #{sourceId,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceDb != null" >
+                #{sourceDb,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceTbl != null" >
+                #{sourceTbl,jdbcType=VARCHAR},
+            </if>
+            <if test="targetId != null" >
+                #{targetId,jdbcType=VARCHAR},
+            </if>
+            <if test="targetDb != null" >
+                #{targetDb,jdbcType=VARCHAR},
+            </if>
+            <if test="targetTbl != null" >
+                #{targetTbl,jdbcType=VARCHAR},
+            </if>
+            <if test="isAddTargetTbl != null" >
+                #{isAddTargetTbl,jdbcType=INTEGER},
+            </if>
+            <if test="addTargetTblStatus != null" >
+                #{addTargetTblStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addTargetTblReason != null" >
+                #{addTargetTblReason,jdbcType=VARCHAR},
+            </if>
+            <if test="addFieldStatus != null" >
+                #{addFieldStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addFieldReason != null" >
+                #{addFieldReason,jdbcType=VARCHAR},
+            </if>
+            <if test="addJsonStatus != null" >
+                #{addJsonStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addJsonReason != null" >
+                #{addJsonReason,jdbcType=VARCHAR},
+            </if>
+            <if test="targetMappingStatus != null" >
+                #{targetMappingStatus,jdbcType=INTEGER},
+            </if>
+            <if test="targetMappingReason != null" >
+                #{targetMappingReason,jdbcType=VARCHAR},
+            </if>
+            <if test="taskId != null" >
+                #{taskId,jdbcType=VARCHAR},
+            </if>
+            <if test="ctime != null" >
+                #{ctime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mtime != null" >
+                #{mtime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo" >
+        update t_sub_task_info
+        <set >
+            <if test="sourceId != null" >
+                source_id = #{sourceId,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceDb != null" >
+                source_db = #{sourceDb,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceTbl != null" >
+                source_tbl = #{sourceTbl,jdbcType=VARCHAR},
+            </if>
+            <if test="targetId != null" >
+                target_id = #{targetId,jdbcType=VARCHAR},
+            </if>
+            <if test="targetDb != null" >
+                target_db = #{targetDb,jdbcType=VARCHAR},
+            </if>
+            <if test="targetTbl != null" >
+                target_tbl = #{targetTbl,jdbcType=VARCHAR},
+            </if>
+            <if test="isAddTargetTbl != null" >
+                is_add_target_tbl = #{isAddTargetTbl,jdbcType=INTEGER},
+            </if>
+            <if test="addTargetTblStatus != null" >
+                add_target_tbl_status = #{addTargetTblStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addTargetTblReason != null" >
+                add_target_tbl_reason = #{addTargetTblReason,jdbcType=VARCHAR},
+            </if>
+            <if test="addFieldStatus != null" >
+                add_field_status = #{addFieldStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addFieldReason != null" >
+                add_field_reason = #{addFieldReason,jdbcType=VARCHAR},
+            </if>
+            <if test="addJsonStatus != null" >
+                add_json_status = #{addJsonStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addJsonReason != null" >
+                add_json_reason = #{addJsonReason,jdbcType=VARCHAR},
+            </if>
+            <if test="targetMappingStatus != null" >
+                target_mapping_status = #{targetMappingStatus,jdbcType=INTEGER},
+            </if>
+            <if test="targetMappingReason != null" >
+                target_mapping_reason = #{targetMappingReason,jdbcType=VARCHAR},
+            </if>
+            <if test="taskId != null" >
+                task_id = #{taskId,jdbcType=VARCHAR},
+            </if>
+            <if test="ctime != null" >
+                ctime = #{ctime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mtime != null" >
+                mtime = #{mtime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo" >
+        update t_sub_task_info
+        set source_id = #{sourceId,jdbcType=VARCHAR},
+        source_db = #{sourceDb,jdbcType=VARCHAR},
+        source_tbl = #{sourceTbl,jdbcType=VARCHAR},
+        target_id = #{targetId,jdbcType=VARCHAR},
+        target_db = #{targetDb,jdbcType=VARCHAR},
+        target_tbl = #{targetTbl,jdbcType=VARCHAR},
+        is_add_target_tbl = #{isAddTargetTbl,jdbcType=INTEGER},
+        add_target_tbl_status = #{addTargetTblStatus,jdbcType=INTEGER},
+        add_target_tbl_reason = #{addTargetTblReason,jdbcType=VARCHAR},
+        add_field_status = #{addFieldStatus,jdbcType=INTEGER},
+        add_field_reason = #{addFieldReason,jdbcType=VARCHAR},
+        add_json_status = #{addJsonStatus,jdbcType=INTEGER},
+        add_json_reason = #{addJsonReason,jdbcType=VARCHAR},
+        target_mapping_status = #{targetMappingStatus,jdbcType=INTEGER},
+        target_mapping_reason = #{targetMappingReason,jdbcType=VARCHAR},
+        task_id = #{taskId,jdbcType=VARCHAR},
+        ctime = #{ctime,jdbcType=TIMESTAMP},
+        mtime = #{mtime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <update id="update" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo">
+        update t_sub_task_info
+        <set>
+            <if test="sourceId != null">
+                source_id = #{sourceId,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceDb != null">
+                source_db = #{sourceDb,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceTbl != null">
+                source_tbl = #{sourceTbl,jdbcType=VARCHAR},
+            </if>
+            <if test="targetId != null">
+                target_id = #{targetId,jdbcType=VARCHAR},
+            </if>
+            <if test="targetDb != null">
+                target_db = #{targetDb,jdbcType=VARCHAR},
+            </if>
+            <if test="targetTbl != null">
+                target_tbl = #{targetTbl,jdbcType=VARCHAR},
+            </if>
+            <if test="isAddTargetTbl != null">
+                is_add_target_tbl = #{isAddTargetTbl,jdbcType=INTEGER},
+            </if>
+            <if test="addTargetTblStatus != null">
+                add_target_tbl_status = #{addTargetTblStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addTargetTblReason != null">
+                add_target_tbl_reason = #{addTargetTblReason,jdbcType=VARCHAR},
+            </if>
+            <if test="addFieldStatus != null">
+                add_field_status = #{addFieldStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addFieldReason != null">
+                add_field_reason = #{addFieldReason,jdbcType=VARCHAR},
+            </if>
+            <if test="addJsonStatus != null">
+                add_json_status = #{addJsonStatus,jdbcType=INTEGER},
+            </if>
+            <if test="addJsonReason != null">
+                add_json_reason = #{addJsonReason,jdbcType=VARCHAR},
+            </if>
+            <if test="targetMappingStatus != null" >
+                target_mapping_status = #{targetMappingStatus,jdbcType=INTEGER},
+            </if>
+            <if test="targetMappingReason != null" >
+                target_mapping_reason = #{targetMappingReason,jdbcType=VARCHAR},
+            </if>
+            <if test="taskId != null">
+                task_id = #{taskId,jdbcType=VARCHAR},
+            </if>
+            <if test="ctime != null">
+                ctime = #{ctime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mtime != null">
+                mtime = #{mtime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=VARCHAR}
+            </if>
+            <if test="sourceId != null">
+                and source_id = #{sourceId,jdbcType=VARCHAR}
+            </if>
+            <if test="targetId != null">
+                and target_id = #{targetId,jdbcType=VARCHAR}
+            </if>
+            <if test="taskId != null">
+                and task_id = #{taskId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </update>
+</mapper>
