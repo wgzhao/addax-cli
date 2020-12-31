@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration status="WARN" packages="org.apache.logging.log4j.core.pattern">
+    <properties>
+        <!-- 文件输出格式 -->
+        <property name="PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} |-%-5level [%thread] %c [%L] -| %msg%n</property>
+    </properties>
+
+    <appenders>
+        <Console name="CONSOLE" target="system_out">
+            <PatternLayout pattern="${PATTERN}"/>
+        </Console>
+
+        <!--  Kafka name="TraceLog" topic="acm">
+      		<PatternLayout pattern="%msg"/>
+			<Property name="bootstrap.servers">10.20.135.134:9092</Property>
+			<Property name="batch.size">16384</Property>
+    	</Kafka-->
+
+        <RollingFile name="TraceLog" fileName="logs/TraceLog.log"
+                     filePattern="logs/TraceLog-$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="SyserrLog" fileName="logs/SyserrLog.log"
+                     filePattern="logs/SyserrLog-$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="BizerrLog" fileName="logs/BizerrLog.log"
+                     filePattern="logs/BizerrLog-$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="Bizlog" fileName="logs/Bizlog.log"
+                     filePattern="logs/Bizlog-$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%hslog%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+        </RollingFile>
+
+        <Async name="AsyncTraceLog">
+            <AppenderRef ref="TraceLog"/>
+        </Async>
+
+        <Async name="AsyncSyserrLog">
+            <AppenderRef ref="SyserrLog"/>
+        </Async>
+
+        <Async name="AsyncBizerrLog">
+            <AppenderRef ref="BizerrLog"/>
+        </Async>
+
+        <Async name="AsyncCONSOLE">
+            <AppenderRef ref="CONSOLE"/>
+        </Async>
+    </appenders>
+
+    <loggers>
+        <AsyncLogger name="com.hundsun.jrescloud.common.log.trace" level="error" additivity="false">
+            <AppenderRef ref="AsyncTraceLog"/>
+        </AsyncLogger>
+
+        <AsyncLogger name="com.hundsun.jrescloud.common.log.syserr" level="error" additivity="false">
+            <AppenderRef ref="AsyncSyserrLog"/>
+        </AsyncLogger>
+
+        <AsyncLogger name="com.hundsun.jrescloud.common.log.bizerr" level="error" additivity="false">
+            <AppenderRef ref="AsyncBizerrLog"/>
+        </AsyncLogger>
+
+        <Logger name="com.cxzq.ds.zeus" level="info" additivity="false">
+            <AppenderRef ref="Bizlog"/>
+            <AppenderRef ref="CONSOLE"/>
+        </Logger>
+
+        <root level="info">
+            <AppenderRef ref="AsyncCONSOLE"/>
+        </root>
+    </loggers>
+
+</configuration>
