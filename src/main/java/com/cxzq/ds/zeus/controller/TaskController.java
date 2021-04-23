@@ -19,7 +19,7 @@ public class TaskController
     @Autowired
     private AsyncManage asyncManage;
 
-    @GetMapping (value = "readSource")
+    @GetMapping(value = "readSource")
     public ServerResponse<String> readingSourceTask(String mainTaskId)
     {
         asyncManage.asyncMethod(mainTaskId);

@@ -70,15 +70,15 @@
     </appenders>
 
     <loggers>
-        <AsyncLogger name="com.hundsun.jrescloud.common.log.trace" level="error" additivity="false">
+        <AsyncLogger name="org.apache.common.log.trace" level="error" additivity="false">
             <AppenderRef ref="AsyncTraceLog"/>
         </AsyncLogger>
 
-        <AsyncLogger name="com.hundsun.jrescloud.common.log.syserr" level="error" additivity="false">
+        <AsyncLogger name="org.apache.common.log.syserr" level="error" additivity="false">
             <AppenderRef ref="AsyncSyserrLog"/>
         </AsyncLogger>
 
-        <AsyncLogger name="com.hundsun.jrescloud.common.log.bizerr" level="error" additivity="false">
+        <AsyncLogger name="org.apache.common.log.bizerr" level="error" additivity="false">
             <AppenderRef ref="AsyncBizerrLog"/>
         </AsyncLogger>
 

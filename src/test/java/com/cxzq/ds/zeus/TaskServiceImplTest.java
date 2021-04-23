@@ -1,6 +1,7 @@
 package com.cxzq.ds.zeus;
 
 import com.cxzq.ds.zeus.server.TaskService;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,13 +14,13 @@ public class TaskServiceImplTest
     @Autowired
     private TaskService taskService;
 
-    @org.junit.Test
+    @Test
     public void colInfoStorageTask()
     {
         taskService.colInfoStorageTask("20201224151209658");
     }
 
-    @org.junit.Test
+    @Test
     public void createTableTask()
     {
     }
