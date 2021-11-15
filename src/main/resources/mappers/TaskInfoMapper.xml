@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cxzq.ds.zeus.mapper.TaskInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.cxzq.ds.zeus.pojo.TaskInfo" >
+<mapper namespace="com.wgzhao.addax.cli.mapper.TaskInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.wgzhao.addax.cli.pojo.TaskInfo" >
     <result column="id" property="id" jdbcType="VARCHAR" />
     <result column="task_status" property="taskStatus" jdbcType="INTEGER" />
     <result column="uid" property="uid" jdbcType="VARCHAR" />
     <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
     <result column="mtime" property="mtime" jdbcType="TIMESTAMP" />
   </resultMap>
-  <insert id="insert" parameterType="com.cxzq.ds.zeus.pojo.TaskInfo" >
+  <insert id="insert" parameterType="com.wgzhao.addax.cli.pojo.TaskInfo" >
     insert into t_task_info (id, task_status, uid, 
       ctime, mtime)
     values (#{id,jdbcType=VARCHAR}, #{taskStatus,jdbcType=INTEGER}, #{uid,jdbcType=VARCHAR}, 
       #{ctime,jdbcType=TIMESTAMP}, #{mtime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.cxzq.ds.zeus.pojo.TaskInfo" >
+  <insert id="insertSelective" parameterType="com.wgzhao.addax.cli.pojo.TaskInfo" >
     insert into t_task_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

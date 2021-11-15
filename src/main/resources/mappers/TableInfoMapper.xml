@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cxzq.ds.zeus.mapper.TableInfoMapper">
-    <resultMap id="BaseResultMap" type="com.cxzq.ds.zeus.pojo.TableInfo">
+<mapper namespace="com.wgzhao.addax.cli.mapper.TableInfoMapper">
+    <resultMap id="BaseResultMap" type="com.wgzhao.addax.cli.pojo.TableInfo">
         <result column="source_id" property="sourceId" jdbcType="VARCHAR" />
         <result column="db_name" property="dbName" jdbcType="VARCHAR" />
         <result column="tbl_name" property="tblName" jdbcType="VARCHAR" />
@@ -11,7 +11,7 @@
         <result column="col_precision" property="colPrecision" jdbcType="INTEGER" />
         <result column="col_pos" property="colPos" jdbcType="INTEGER" />
     </resultMap>
-    <insert id="insert" parameterType="com.cxzq.ds.zeus.pojo.TableInfo">
+    <insert id="insert" parameterType="com.wgzhao.addax.cli.pojo.TableInfo">
         replace into t_table_info (source_id, db_name, tbl_name,
         col_name, col_type, col_length,
         col_precision, col_pos)
@@ -19,7 +19,7 @@
         #{colName,jdbcType=VARCHAR}, #{colType,jdbcType=VARCHAR}, #{colLength,jdbcType=INTEGER},
         #{colPrecision,jdbcType=INTEGER}, #{colPos,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="com.cxzq.ds.zeus.pojo.TableInfo">
+    <insert id="insertSelective" parameterType="com.wgzhao.addax.cli.pojo.TableInfo">
         insert into t_table_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="sourceId != null">
@@ -74,7 +74,7 @@
             </if>
         </trim>
     </insert>
-    <select id="getTableInfos" resultMap="BaseResultMap" parameterType="com.cxzq.ds.zeus.pojo.TableInfo">
+    <select id="getTableInfos" resultMap="BaseResultMap" parameterType="com.wgzhao.addax.cli.pojo.TableInfo">
         select * from t_table_info
         <where>
             <if test="sourceId != null">

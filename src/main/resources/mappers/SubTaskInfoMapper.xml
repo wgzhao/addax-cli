@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.cxzq.ds.zeus.mapper.SubTaskInfoMapper">
-    <resultMap id="BaseResultMap" type="com.cxzq.ds.zeus.pojo.SubTaskInfo">
+<mapper namespace="com.wgzhao.addax.cli.mapper.SubTaskInfoMapper">
+    <resultMap id="BaseResultMap" type="com.wgzhao.addax.cli.pojo.SubTaskInfo">
         <result column="source_id" property="sourceId" jdbcType="VARCHAR" />
         <result column="source_db" property="sourceDb" jdbcType="VARCHAR" />
         <result column="source_tbl" property="sourceTbl" jdbcType="VARCHAR" />
@@ -73,7 +73,7 @@
         delete from t_sub_task_info
         where id = #{id,jdbcType=VARCHAR}
     </delete>
-    <insert id="insert" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo" >
+    <insert id="insert" parameterType="com.wgzhao.addax.cli.pojo.SubTaskInfo" >
         insert into t_sub_task_info (id, source_id, source_db,
         source_tbl, target_id, target_db,
         target_tbl, is_add_target_tbl, add_target_tbl_status,
@@ -89,7 +89,7 @@
         #{targetMappingReason,jdbcType=VARCHAR}, #{taskId,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP},
         #{mtime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo" >
+    <insert id="insertSelective" parameterType="com.wgzhao.addax.cli.pojo.SubTaskInfo" >
         insert into t_sub_task_info
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -210,7 +210,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo" >
+    <update id="updateByPrimaryKeySelective" parameterType="com.wgzhao.addax.cli.pojo.SubTaskInfo" >
         update t_sub_task_info
         <set >
             <if test="sourceId != null" >
@@ -270,7 +270,7 @@
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo" >
+    <update id="updateByPrimaryKey" parameterType="com.wgzhao.addax.cli.pojo.SubTaskInfo" >
         update t_sub_task_info
         set source_id = #{sourceId,jdbcType=VARCHAR},
         source_db = #{sourceDb,jdbcType=VARCHAR},
@@ -293,7 +293,7 @@
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
-    <update id="update" parameterType="com.cxzq.ds.zeus.pojo.SubTaskInfo">
+    <update id="update" parameterType="com.wgzhao.addax.cli.pojo.SubTaskInfo">
         update t_sub_task_info
         <set>
             <if test="sourceId != null">

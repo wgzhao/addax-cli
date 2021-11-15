@@ -1,10 +1,17 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <artifactId>zeus-data</artifactId>
-    <groupId>com.cxzq.ds.zeus</groupId>
-    <version>1.1.0-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>addax-cli</artifactId>
+    <groupId>com.wgzhao.addax</groupId>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.6</version>
+    </parent>
 
     <properties>
         <project.sourceEncoding>UTF-8</project.sourceEncoding>
@@ -17,31 +24,12 @@
     </properties>
 
     <dependencies>
-        <!-- jres3.0 -->
+
         <dependency>
-            <groupId>com.hundsun.jrescloud</groupId>
-            <artifactId>jrescloud-starter-rpc-def</artifactId>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>2.2.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.hundsun.jrescloud</groupId>
-            <artifactId>jrescloud-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.hundsun.jrescloud</groupId>
-            <artifactId>jrescloud-starter-cache</artifactId>
-            <version>3.0.2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.hundsun.jrescloud</groupId>
-            <artifactId>jrescloud-starter-mybatis</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jrescloud-db-monitor</artifactId>
-                    <groupId>com.hundsun.jrescloud</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- jres3.0 end -->
 
         <!-- spring-boot -->
         <dependency>
@@ -56,13 +44,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
-            <version>2.2.2.RELEASE</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -81,9 +67,14 @@
         <dependency>
             <groupId>io.prestosql</groupId>
             <artifactId>presto-jdbc</artifactId>
-            <version>331</version>
+            <version>348</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.trino</groupId>
+            <artifactId>trino-jdbc</artifactId>
+            <version>363</version>
+        </dependency>
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc6</artifactId>
@@ -99,7 +90,7 @@
         <dependency>
             <groupId>ru.yandex.clickhouse</groupId>
             <artifactId>clickhouse-jdbc</artifactId>
-            <version>0.2.4</version>
+            <version>0.3.1-patch</version>
         </dependency>
 
         <dependency>
@@ -109,21 +100,17 @@
         </dependency>
         <!-- 数据源 end -->
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.hundsun.jrescloud</groupId>
-                <artifactId>jrescloud-dependencies</artifactId>
-                <version>3.0.6</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
