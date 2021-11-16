@@ -126,7 +126,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.2.2.RELEASE</version>
                 <configuration>
                     <executable>true</executable>
                 </configuration>
@@ -185,28 +184,4 @@
             </resource>
         </resources>
     </build>
-    <profiles>
-        <profile>
-            <id>dev</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <deploy.type>dev</deploy.type>
-            </properties>
-        </profile>
-        <profile>
-            <id>test</id>
-            <properties>
-                <deploy.type>test</deploy.type>
-            </properties>
-        </profile>
-        <profile>
-            <id>prod</id>
-            <properties>
-                <deploy.type>prod</deploy.type>
-            </properties>
-        </profile>
-    </profiles>
-
 </project>
